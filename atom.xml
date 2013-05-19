@@ -4,7 +4,7 @@
   <title><![CDATA[Knowledge Mining]]></title>
   <link href="http://murraju.github.io/atom.xml" rel="self"/>
   <link href="http://murraju.github.io/"/>
-  <updated>2013-05-19T13:19:18-04:00</updated>
+  <updated>2013-05-19T13:20:45-04:00</updated>
   <id>http://murraju.github.io/</id>
   <author>
     <name><![CDATA[Murali Raju]]></name>
@@ -18,7 +18,7 @@
     <link href="http://murraju.github.io/blog/2013/05/19/the-beauty-of-xml-processing-in-scala/"/>
     <updated>2013-05-19T12:41:00-04:00</updated>
     <id>http://murraju.github.io/blog/2013/05/19/the-beauty-of-xml-processing-in-scala</id>
-    <content type="html"><![CDATA[<p>Scala is one of the &ldquo;X-men&rdquo; of languages where the beauty comes from merging OOP and Functional paradigms into a single &ldquo;Scalable Language&rdquo; (Scala). I was tinkering around a concurrency application (Actor) processes hadoop xml config files. The simplicty to process large xml files with a few lines of code was pretty amazing.</p>
+    <content type="html"><![CDATA[<p>Scala is one of the &ldquo;X-men&rdquo; of languages where the beauty comes from merging OOP and Functional paradigms into a single &ldquo;Scalable Language&rdquo; (Scala). I was tinkering around a concurrency application (Actor) that processes hadoop xml config files. The simplicty to process large xml files with a few lines of code was pretty amazing.</p>
 
 <figure class='code'><figcaption><span>XML Processing in Sala (xml.scala)</span> <a href='http://murraju.github.io/downloads/code/scala/xml.scala'>download</a></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
