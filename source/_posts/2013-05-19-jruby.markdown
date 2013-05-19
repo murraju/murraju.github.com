@@ -1,0 +1,57 @@
+---
+layout: post
+title: "JRuby, Kerberos and Hadoop HDFS"
+date: 2013-05-19 10:37
+comments: true
+categories: Hadoop
+---
+
+I needed to refactor existing functionality on hadooplib to support a secure cluster running kerberos. Starting with the HDFS, the important items to make note are the following:
+
+JRuby runtime classloader - setting conf.add_resource ("path to hadoop xmls") does not work, since JRuby runtime does not load the correct classpaths. It appears you have to explicitly state the classloader:
+
+```
+jruby_class_loader = JRuby.runtime.getJRubyClassLoader
+Java::java.lang.Thread.currentThread.setContextClassLoader(jruby_class_loader)
+
+```
+
+Add missing imports:
+
+```
+java_import org.apache.hadoop.security.UserGroupInformation
+
+```
+
+conf object:
+
+```
+#Parameters
+conf_dir =  params['hadoop_conf_dir'] #path to HADOOP_CONF_DIR
+principal = params['kerberos_principal'] #kerberos principal to use
+keytab_file = params['kerberos_keytab_file'] #path to the keytab file to use
+
+#Load Hadoop_CONF_DIR to make sure the .xml file are in the runtime path
+unless $CLASSPATH.include? conf_dir
+  $CLASSPATH << conf_dir
+end
+
+core_site = jruby_class_loader.getResource("core-site.xml")
+hdfs_site = jruby_class_loader.getResource("hdfs-site.xml")
+
+#Construct conf object
+conf = Configuration.new
+conf.get('fs.default.name')
+conf.set("hadoop.security.group.mapping", 
+         "org.apache.hadoop.security.ShellBasedUnixGroupsMapping")
+UserGroupInformation.setConfiguration(conf)
+
+#Authenticate with kerberos
+UserGroupInformation.loginUserFromKeytab(principal, keytab_file)
+
+#Get a FileSystem object to interogate HDFS
+fs=org.apache.hadoop.fs.FileSystem.get(conf)
+
+```
+
+Volla! The above are basic steps to migrate your existing JRuby/Hadoop code to work with kerberos. I hope to complete and add more functionality to hadooplib in the next few weeks.
