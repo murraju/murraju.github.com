@@ -6,7 +6,7 @@ comments: true
 categories: Hadoop
 ---
 
-I needed to refactor existing functionality on hadooplib to support a secure cluster running kerberos. Starting with the HDFS, the important items to make note are the following:
+I needed to refactor existing functionality on hadooplib to support a secure cluster running kerberos. Starting with HDFS, the important items to make note are the following:
 
 JRuby runtime classloader - setting conf.add_resource ("path to hadoop xmls") does not work, since JRuby runtime does not load the correct classpaths. It appears you have to explicitly state the classloader:
 
