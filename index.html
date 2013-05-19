@@ -9,7 +9,7 @@
   <meta name="author" content="Murali Raju">
 
   
-  <meta name="description" content="I needed to refactor existing functionality on hadooplib to support a secure cluster running kerberos. Starting with HDFS, the important items to &hellip;">
+  <meta name="description" content="Scala is one of the &ldquo;X-men&rdquo; of languages where the beauty comes from merging OOP and Functional paradigms into a single &ldquo;Scalable &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,68 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/19/the-beauty-of-xml-processing-in-scala/">The Beauty of XML Processing in Scala</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-19T12:41:00-04:00" pubdate data-updated="true">May 19<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Scala is one of the &ldquo;X-men&rdquo; of languages where the beauty comes from merging OOP and Functional paradigms into a single &ldquo;Scalable Language&rdquo; (Scala). I was tinkering around a concurrency application (Actor) processes hadoop xml config files. The simplicty to process large xml files with a few lines of code was pretty amazing.</p>
+
+<figure class='code'><figcaption><span>XML Processing in Sala (xml.scala)</span> <a href='/downloads/code/scala/xml.scala'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">hdfs</span> <span class="k">=</span> <span class="n">scala</span><span class="o">.</span><span class="n">xml</span><span class="o">.</span><span class="nc">XML</span><span class="o">.</span><span class="n">loadFile</span><span class="o">(</span><span class="s">&quot;hdfs-site.xml&quot;</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">val</span> <span class="n">hdfs_properties</span> <span class="k">=</span> <span class="n">hdfs</span> <span class="o">\</span> <span class="s">&quot;property&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">(</span><span class="n">hdfs_properties</span> <span class="o">\</span> <span class="s">&quot;_&quot;</span><span class="o">).</span><span class="n">foreach</span> <span class="o">{</span> <span class="n">hdfs</span> <span class="k">=&gt;</span>
+</span><span class='line'>  <span class="n">hdfs</span> <span class="k">match</span> <span class="o">{</span>
+</span><span class='line'>      <span class="k">case</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;{</span><span class="n">hdfsPropertyName</span><span class="o">}&lt;/</span><span class="n">name</span><span class="o">&gt;</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Property: &quot;</span> <span class="o">+</span> <span class="n">hdfsPropertyName</span><span class="o">)</span>
+</span><span class='line'>      <span class="k">case</span> <span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;{</span><span class="n">hdfsPropertyValue</span><span class="o">}&lt;/</span><span class="n">value</span><span class="o">&gt;</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Value: &quot;</span> <span class="o">+</span> <span class="n">hdfsPropertyValue</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -190,6 +252,10 @@
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/19/the-beauty-of-xml-processing-in-scala/">The Beauty of XML Processing in Scala</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/05/19/jruby/">JRuby, Kerberos and Hadoop HDFS</a>
