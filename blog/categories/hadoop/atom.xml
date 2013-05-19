@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Hadoop | Knowledge Mining]]></title>
   <link href="http://murraju.github.io/blog/categories/hadoop/atom.xml" rel="self"/>
   <link href="http://murraju.github.io/"/>
-  <updated>2013-05-19T12:27:38-04:00</updated>
+  <updated>2013-05-19T12:34:11-04:00</updated>
   <id>http://murraju.github.io/</id>
   <author>
     <name><![CDATA[Murali Raju]]></name>
@@ -18,7 +18,7 @@
     <link href="http://murraju.github.io/blog/2013/05/19/jruby/"/>
     <updated>2013-05-19T10:37:00-04:00</updated>
     <id>http://murraju.github.io/blog/2013/05/19/jruby</id>
-    <content type="html"><![CDATA[<p>I needed to refactor existing functionality on hadooplib to support a secure cluster running kerberos. Starting with the HDFS, the important items to make note are the following:</p>
+    <content type="html"><![CDATA[<p>I needed to refactor existing functionality on hadooplib to support a secure cluster running kerberos. Starting with HDFS, the important items to make note are the following:</p>
 
 <p>JRuby runtime classloader &ndash; setting conf.add_resource (&ldquo;path to hadoop xmls&rdquo;) does not work, since JRuby runtime does not load the correct classpaths. It appears you have to explicitly state the classloader:</p>
 
