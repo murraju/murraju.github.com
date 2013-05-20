@@ -9,7 +9,7 @@
   <meta name="author" content="Murali Raju">
 
   
-  <meta name="description" content="Scala is one of the &ldquo;X-men&rdquo; of languages where the beauty comes from merging OOP and Functional paradigms into a single &ldquo;Scalable &hellip;">
+  <meta name="description" content="I am happy to share the Vagrantfile I use to setup Hadoop labs when I teach various classes. The hardware used is a 16G Macbook Pro (Retina) with a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,415 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/19/hadoop-hdp-1-dot-2-lab-with-virtualbox/">A 5 Node Hadoop HDP 1.2 Cluster With VirtualBox, Vagrant and Chef</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-19T21:29:00-04:00" pubdate data-updated="true">May 19<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I am happy to share the Vagrantfile I use to setup Hadoop labs when I teach various classes. The hardware used is a 16G Macbook Pro (Retina) with a 500G SSD. Should work on any Linux box with close to similar specs (not tested on Windows). Adjust the hadoop-hdp cookbook default attributes accordingly to fit to your environment. In addition, you can modify the memory requirements for each VM within the Vagrant file. Have fun!</p>
+
+<p>The following are the requirements:</p>
+
+<p>Velankani Information Systems, Inc Chef Cookbooks.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git clone git@github.com:velankanisys/velankanisys-chef-pantry.git
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>CentOS 6.3 minimum box for VirtualBox (google for links). Preferrably repackaged with Chef 11.4.0 to remove an extra bootstrapping step.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rajum@~/VirtuaBox/HadoopLabHDP$ vagrant box list
+</span><span class='line'>aws                             (aws)
+</span><span class='line'>centos6.3minimal_chef11.4.0.box (virtualbox)
+</span><span class='line'>precise64                       (virtualbox)
+</span><span class='line'>ubuntu12.0.4.2.LTS.box          (virtualbox)
+</span><span class='line'>rajum@~/VirtuaBox/HadoopLabHDP$
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Download and rename Vagrantfile.rb to Vagrantfile. Run &ldquo;vagrant up&rdquo; to launch the cluster and &ldquo;vagrant status&rdquo; after chef completes &ldquo;cooking&rdquo; to see all 5 nodes. The first run takes more time as chef runs all recipes for the first time.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rajum@~/VirtuaBox/HadoopLabHDP$ vagrant status
+</span><span class='line'>Current machine states:
+</span><span class='line'>
+</span><span class='line'>hdpnamenode              running (virtualbox)
+</span><span class='line'>hdpjobtracker            running (virtualbox)
+</span><span class='line'>hdpworker1               running (virtualbox)
+</span><span class='line'>hdpworker2               running (virtualbox)
+</span><span class='line'>hdpworker3               running (virtualbox)
+</span><span class='line'>
+</span><span class='line'>This environment represents multiple VMs. The VMs are all listed
+</span><span class='line'>above with their current state. For more information about a specific
+</span><span class='line'>VM, run `vagrant status NAME`.
+</span><span class='line'>rajum@~/VirtuaBox/HadoopLabHDP$
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Hadoop HDP 1.2 Vagrantfile (Vagrantfile.rb)</span> <a href='/downloads/code/ruby/Vagrantfile.rb'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+<span class='line-number'>153</span>
+<span class='line-number'>154</span>
+<span class='line-number'>155</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="c1"># Author: Murali Raju &lt;murali.raju@appliv.com&gt;</span>
+</span><span class='line'><span class="c1">#</span>
+</span><span class='line'><span class="c1"># Copyright 2013, Murali Raju &lt;murali.raju@appliv.com&gt;</span>
+</span><span class='line'><span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+</span><span class='line'><span class="c1"># you may not use this file except in compliance with the License.</span>
+</span><span class='line'><span class="c1"># You may obtain a copy of the License at</span>
+</span><span class='line'><span class="c1">#</span>
+</span><span class='line'><span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+</span><span class='line'><span class="c1">#</span>
+</span><span class='line'><span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+</span><span class='line'><span class="c1"># cookbooksributed under the License is cookbooksributed on an &quot;AS IS&quot; BASIS,</span>
+</span><span class='line'><span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+</span><span class='line'><span class="c1"># See the License for the specific language governing permissions and</span>
+</span><span class='line'><span class="c1"># limitations under the License.</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># -*- mode: ruby -*-</span>
+</span><span class='line'><span class="c1"># vi: set ft=ruby :</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="vg">$hdp_host_script</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="no">SCRIPT</span>
+</span><span class='line'><span class="sh">#!/bin/bash</span>
+</span><span class='line'><span class="sh">cat &gt; /etc/hosts &lt;&lt;EOF</span>
+</span><span class='line'><span class="sh">127.0.0.1       localhost</span>
+</span><span class='line'>
+</span><span class='line'><span class="sh"># The following lines are desirable for IPv6 capable hosts</span>
+</span><span class='line'><span class="sh">::1     ip6-localhost ip6-loopback</span>
+</span><span class='line'><span class="sh">fe00::0 ip6-localnet</span>
+</span><span class='line'><span class="sh">ff00::0 ip6-mcastprefix</span>
+</span><span class='line'><span class="sh">ff02::1 ip6-allnodes</span>
+</span><span class='line'><span class="sh">ff02::2 ip6-allrouters</span>
+</span><span class='line'>
+</span><span class='line'><span class="sh">172.16.10.200   hadoop-hdp-node1</span>
+</span><span class='line'><span class="sh">172.16.10.201   hadoop-hdp-node2</span>
+</span><span class='line'><span class="sh">172.16.10.202   hadoop-hdp-node3</span>
+</span><span class='line'><span class="sh">172.16.10.203   hadoop-hdp-node4</span>
+</span><span class='line'><span class="sh">172.16.10.204   hadoop-hdp-node5</span>
+</span><span class='line'><span class="sh">EOF</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">SCRIPT</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">Vagrant</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s2">&quot;2&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">define</span> <span class="ss">:hdpnamenode</span> <span class="k">do</span> <span class="o">|</span><span class="n">hdpnamenode</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">hdpnamenode</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="s2">&quot;centos6.3minimal_chef11.4.0.box&quot;</span>
+</span><span class='line'>    <span class="n">hdpnamenode</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provider</span> <span class="s2">&quot;vmware_fusion&quot;</span> <span class="k">do</span> <span class="o">|</span><span class="n">v</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">v</span><span class="o">.</span><span class="n">vmx</span><span class="o">[</span><span class="s2">&quot;memsize&quot;</span><span class="o">]</span>  <span class="o">=</span> <span class="s2">&quot;2048&quot;</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="n">hdpnamenode</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provider</span> <span class="ss">:vmware_fusion</span> <span class="k">do</span> <span class="o">|</span><span class="n">v</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;hadoop-hdp-node1&quot;</span>
+</span><span class='line'>      <span class="n">v</span><span class="o">.</span><span class="n">customize</span> <span class="o">[</span><span class="s2">&quot;modifyvm&quot;</span><span class="p">,</span> <span class="ss">:id</span><span class="p">,</span> <span class="s2">&quot;--memory&quot;</span><span class="p">,</span> <span class="s2">&quot;2048&quot;</span><span class="o">]</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="n">hdpnamenode</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">network</span> <span class="ss">:private_network</span><span class="p">,</span> <span class="ss">ip</span><span class="p">:</span> <span class="s2">&quot;172.16.10.200&quot;</span>
+</span><span class='line'>    <span class="n">hdpnamenode</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">hostname</span> <span class="o">=</span> <span class="s2">&quot;hadoop-hdp-node1&quot;</span>
+</span><span class='line'>    <span class="n">hdpnamenode</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">synced_folder</span> <span class="s2">&quot;&lt;path&gt;/velankanisys-chef-pantry/cookbooks&quot;</span><span class="p">,</span> <span class="s2">&quot;/cookbooks&quot;</span>
+</span><span class='line'>    <span class="n">hdpnamenode</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">synced_folder</span> <span class="s2">&quot;&lt;development folder path&gt;/Development/&quot;</span><span class="p">,</span> <span class="s2">&quot;/home/vagrant/dev&quot;</span>
+</span><span class='line'>    <span class="n">hdpnamenode</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="ss">:shell</span><span class="p">,</span> <span class="ss">:inline</span> <span class="o">=&gt;</span> <span class="vg">$hdp_host_script</span>
+</span><span class='line'>    <span class="n">hdpnamenode</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="ss">:chef_solo</span> <span class="k">do</span> <span class="o">|</span><span class="n">chef</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">chef</span><span class="o">.</span><span class="n">cookbooks_path</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;&lt;path&gt;/velankanisys-chef-pantry/cookbooks&quot;</span><span class="o">]</span>
+</span><span class='line'>      <span class="n">chef</span><span class="o">.</span><span class="n">add_recipe</span><span class="p">(</span><span class="s2">&quot;hadoop-hdp::default&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">chef</span><span class="o">.</span><span class="n">add_recipe</span><span class="p">(</span><span class="s2">&quot;hadoop-hdp::namenode&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">chef</span><span class="o">.</span><span class="n">add_recipe</span><span class="p">(</span><span class="s2">&quot;hadoop-hdp::datanode&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">chef</span><span class="o">.</span><span class="n">add_recipe</span><span class="p">(</span><span class="s2">&quot;hadoop-hdp::tasktracker&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">define</span> <span class="ss">:hdpjobtracker</span> <span class="k">do</span> <span class="o">|</span><span class="n">hdpjobtracker</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">hdpjobtracker</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="s2">&quot;centos6.3minimal_chef11.4.0.box&quot;</span>
+</span><span class='line'>    <span class="n">hdpjobtracker</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provider</span> <span class="s2">&quot;vmware_fusion&quot;</span> <span class="k">do</span> <span class="o">|</span><span class="n">v</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">v</span><span class="o">.</span><span class="n">vmx</span><span class="o">[</span><span class="s2">&quot;memsize&quot;</span><span class="o">]</span>  <span class="o">=</span> <span class="s2">&quot;2048&quot;</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="n">hdpjobtracker</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provider</span> <span class="ss">:vmware_fusion</span> <span class="k">do</span> <span class="o">|</span><span class="n">v</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;hadoop-hdp-node2&quot;</span>
+</span><span class='line'>      <span class="n">v</span><span class="o">.</span><span class="n">customize</span> <span class="o">[</span><span class="s2">&quot;modifyvm&quot;</span><span class="p">,</span> <span class="ss">:id</span><span class="p">,</span> <span class="s2">&quot;--memory&quot;</span><span class="p">,</span> <span class="s2">&quot;2048&quot;</span><span class="o">]</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="n">hdpjobtracker</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">network</span> <span class="ss">:private_network</span><span class="p">,</span> <span class="ss">ip</span><span class="p">:</span> <span class="s2">&quot;172.16.10.201&quot;</span>
+</span><span class='line'>    <span class="n">hdpjobtracker</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">hostname</span> <span class="o">=</span> <span class="s2">&quot;hadoop-hdp-node2&quot;</span>
+</span><span class='line'>    <span class="n">hdpjobtracker</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">synced_folder</span> <span class="s2">&quot;&lt;path&gt;/velankanisys-chef-pantry/cookbooks&quot;</span><span class="p">,</span> <span class="s2">&quot;/cookbooks&quot;</span>
+</span><span class='line'>    <span class="n">hdpjobtracker</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">synced_folder</span> <span class="s2">&quot;&lt;development folder path&gt;/Development/&quot;</span><span class="p">,</span> <span class="s2">&quot;/home/vagrant/dev&quot;</span>
+</span><span class='line'>    <span class="n">hdpjobtracker</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="ss">:shell</span><span class="p">,</span> <span class="ss">:inline</span> <span class="o">=&gt;</span> <span class="vg">$hdp_host_script</span>
+</span><span class='line'>    <span class="n">hdpjobtracker</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="ss">:chef_solo</span> <span class="k">do</span> <span class="o">|</span><span class="n">chef</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">chef</span><span class="o">.</span><span class="n">cookbooks_path</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;&lt;path&gt;/velankanisys-chef-pantry/cookbooks&quot;</span><span class="o">]</span>
+</span><span class='line'>      <span class="n">chef</span><span class="o">.</span><span class="n">add_recipe</span><span class="p">(</span><span class="s2">&quot;hadoop-hdp::default&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">chef</span><span class="o">.</span><span class="n">add_recipe</span><span class="p">(</span><span class="s2">&quot;hadoop-hdp::jobtracker&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">chef</span><span class="o">.</span><span class="n">add_recipe</span><span class="p">(</span><span class="s2">&quot;hadoop-hdp::datanode&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">chef</span><span class="o">.</span><span class="n">add_recipe</span><span class="p">(</span><span class="s2">&quot;hadoop-hdp::tasktracker&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">define</span> <span class="ss">:hdpworker1</span> <span class="k">do</span> <span class="o">|</span><span class="n">hdpworker1</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">hdpworker1</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="s2">&quot;centos6.3minimal_chef11.4.0.box&quot;</span>
+</span><span class='line'>    <span class="n">hdpworker1</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provider</span> <span class="s2">&quot;vmware_fusion&quot;</span> <span class="k">do</span> <span class="o">|</span><span class="n">v</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">v</span><span class="o">.</span><span class="n">vmx</span><span class="o">[</span><span class="s2">&quot;memsize&quot;</span><span class="o">]</span>  <span class="o">=</span> <span class="s2">&quot;1024&quot;</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="n">hdpworker1</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provider</span> <span class="ss">:vmware_fusion</span> <span class="k">do</span> <span class="o">|</span><span class="n">v</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;hadoop-hdp-node3&quot;</span>
+</span><span class='line'>      <span class="n">v</span><span class="o">.</span><span class="n">customize</span> <span class="o">[</span><span class="s2">&quot;modifyvm&quot;</span><span class="p">,</span> <span class="ss">:id</span><span class="p">,</span> <span class="s2">&quot;--memory&quot;</span><span class="p">,</span> <span class="s2">&quot;1024&quot;</span><span class="o">]</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="n">hdpworker1</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">network</span> <span class="ss">:private_network</span><span class="p">,</span> <span class="ss">ip</span><span class="p">:</span> <span class="s2">&quot;172.16.10.202&quot;</span>
+</span><span class='line'>    <span class="n">hdpworker1</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">hostname</span> <span class="o">=</span> <span class="s2">&quot;hadoop-hdp-node3&quot;</span>
+</span><span class='line'>    <span class="n">hdpworker1</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">synced_folder</span> <span class="s2">&quot;&lt;path&gt;/velankanisys-chef-pantry/cookbooks&quot;</span><span class="p">,</span> <span class="s2">&quot;/cookbooks&quot;</span>
+</span><span class='line'>    <span class="n">hdpworker1</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">synced_folder</span> <span class="s2">&quot;&lt;development folder path&gt;/Development/&quot;</span><span class="p">,</span> <span class="s2">&quot;/home/vagrant/dev&quot;</span>
+</span><span class='line'>    <span class="n">hdpworker1</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="ss">:shell</span><span class="p">,</span> <span class="ss">:inline</span> <span class="o">=&gt;</span> <span class="vg">$hdp_host_script</span>
+</span><span class='line'>    <span class="n">hdpworker1</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="ss">:chef_solo</span> <span class="k">do</span> <span class="o">|</span><span class="n">chef</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">chef</span><span class="o">.</span><span class="n">cookbooks_path</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;&lt;path&gt;/velankanisys-chef-pantry/cookbooks&quot;</span><span class="o">]</span>
+</span><span class='line'>      <span class="n">chef</span><span class="o">.</span><span class="n">add_recipe</span><span class="p">(</span><span class="s2">&quot;hadoop-hdp::default&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">chef</span><span class="o">.</span><span class="n">add_recipe</span><span class="p">(</span><span class="s2">&quot;hadoop-hdp::datanode&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">chef</span><span class="o">.</span><span class="n">add_recipe</span><span class="p">(</span><span class="s2">&quot;hadoop-hdp::tasktracker&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">define</span> <span class="ss">:hdpworker2</span> <span class="k">do</span> <span class="o">|</span><span class="n">hdpworker2</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">hdpworker2</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="s2">&quot;centos6.3minimal_chef11.4.0.box&quot;</span>
+</span><span class='line'>    <span class="n">hdpworker2</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provider</span> <span class="s2">&quot;vmware_fusion&quot;</span> <span class="k">do</span> <span class="o">|</span><span class="n">v</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">v</span><span class="o">.</span><span class="n">vmx</span><span class="o">[</span><span class="s2">&quot;memsize&quot;</span><span class="o">]</span>  <span class="o">=</span> <span class="s2">&quot;1024&quot;</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="n">hdpworker2</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provider</span> <span class="ss">:vmware_fusion</span> <span class="k">do</span> <span class="o">|</span><span class="n">v</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;hadoop-hdp-node4&quot;</span>
+</span><span class='line'>      <span class="n">v</span><span class="o">.</span><span class="n">customize</span> <span class="o">[</span><span class="s2">&quot;modifyvm&quot;</span><span class="p">,</span> <span class="ss">:id</span><span class="p">,</span> <span class="s2">&quot;--memory&quot;</span><span class="p">,</span> <span class="s2">&quot;1024&quot;</span><span class="o">]</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="n">hdpworker2</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">network</span> <span class="ss">:private_network</span><span class="p">,</span> <span class="ss">ip</span><span class="p">:</span> <span class="s2">&quot;172.16.10.203&quot;</span>
+</span><span class='line'>    <span class="n">hdpworker2</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">hostname</span> <span class="o">=</span> <span class="s2">&quot;hadoop-hdp-node4&quot;</span>
+</span><span class='line'>    <span class="n">hdpworker2</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">synced_folder</span> <span class="s2">&quot;&lt;path&gt;/velankanisys-chef-pantry/cookbooks&quot;</span><span class="p">,</span> <span class="s2">&quot;/cookbooks&quot;</span>
+</span><span class='line'>    <span class="n">hdpworker2</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">synced_folder</span> <span class="s2">&quot;&lt;development folder path&gt;/Development/&quot;</span><span class="p">,</span> <span class="s2">&quot;/home/vagrant/dev&quot;</span>
+</span><span class='line'>    <span class="n">hdpworker2</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="ss">:shell</span><span class="p">,</span> <span class="ss">:inline</span> <span class="o">=&gt;</span> <span class="vg">$hdp_host_script</span>
+</span><span class='line'>    <span class="n">hdpworker2</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="ss">:chef_solo</span> <span class="k">do</span> <span class="o">|</span><span class="n">chef</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">chef</span><span class="o">.</span><span class="n">cookbooks_path</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;&lt;path&gt;/velankanisys-chef-pantry/cookbooks&quot;</span><span class="o">]</span>
+</span><span class='line'>      <span class="n">chef</span><span class="o">.</span><span class="n">add_recipe</span><span class="p">(</span><span class="s2">&quot;hadoop-hdp::default&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">chef</span><span class="o">.</span><span class="n">add_recipe</span><span class="p">(</span><span class="s2">&quot;hadoop-hdp::datanode&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">chef</span><span class="o">.</span><span class="n">add_recipe</span><span class="p">(</span><span class="s2">&quot;hadoop-hdp::tasktracker&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">define</span> <span class="ss">:hdpworker3</span> <span class="k">do</span> <span class="o">|</span><span class="n">hdpworker3</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">hdpworker3</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="s2">&quot;centos6.3minimal_chef11.4.0.box&quot;</span>
+</span><span class='line'>    <span class="n">hdpworker3</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provider</span> <span class="s2">&quot;vmware_fusion&quot;</span> <span class="k">do</span> <span class="o">|</span><span class="n">v</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">v</span><span class="o">.</span><span class="n">vmx</span><span class="o">[</span><span class="s2">&quot;memsize&quot;</span><span class="o">]</span>  <span class="o">=</span> <span class="s2">&quot;1024&quot;</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="n">hdpworker3</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provider</span> <span class="ss">:vmware_fusion</span> <span class="k">do</span> <span class="o">|</span><span class="n">v</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;hadoop-hdp-node5&quot;</span>
+</span><span class='line'>      <span class="n">v</span><span class="o">.</span><span class="n">customize</span> <span class="o">[</span><span class="s2">&quot;modifyvm&quot;</span><span class="p">,</span> <span class="ss">:id</span><span class="p">,</span> <span class="s2">&quot;--memory&quot;</span><span class="p">,</span> <span class="s2">&quot;1024&quot;</span><span class="o">]</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="n">hdpworker3</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">network</span> <span class="ss">:private_network</span><span class="p">,</span> <span class="ss">ip</span><span class="p">:</span> <span class="s2">&quot;172.16.10.204&quot;</span>
+</span><span class='line'>    <span class="n">hdpworker3</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">hostname</span> <span class="o">=</span> <span class="s2">&quot;hadoop-hdp-node5&quot;</span>
+</span><span class='line'>    <span class="n">hdpworker3</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">synced_folder</span> <span class="s2">&quot;&lt;path&gt;/velankanisys-chef-pantry/cookbooks&quot;</span><span class="p">,</span> <span class="s2">&quot;/cookbooks&quot;</span>
+</span><span class='line'>    <span class="n">hdpworker3</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">synced_folder</span> <span class="s2">&quot;&lt;development folder path&gt;/Development/&quot;</span><span class="p">,</span> <span class="s2">&quot;/home/vagrant/dev&quot;</span>
+</span><span class='line'>    <span class="n">hdpworker3</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="ss">:shell</span><span class="p">,</span> <span class="ss">:inline</span> <span class="o">=&gt;</span> <span class="vg">$hdp_host_script</span>
+</span><span class='line'>    <span class="n">hdpworker3</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="ss">:chef_solo</span> <span class="k">do</span> <span class="o">|</span><span class="n">chef</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">chef</span><span class="o">.</span><span class="n">cookbooks_path</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;&lt;path&gt;/velankanisys-chef-pantry/cookbooks&quot;</span><span class="o">]</span>
+</span><span class='line'>      <span class="n">chef</span><span class="o">.</span><span class="n">add_recipe</span><span class="p">(</span><span class="s2">&quot;hadoop-hdp::default&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">chef</span><span class="o">.</span><span class="n">add_recipe</span><span class="p">(</span><span class="s2">&quot;hadoop-hdp::datanode&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">chef</span><span class="o">.</span><span class="n">add_recipe</span><span class="p">(</span><span class="s2">&quot;hadoop-hdp::tasktracker&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -252,6 +661,10 @@
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/19/hadoop-hdp-1-dot-2-lab-with-virtualbox/">A 5 Node Hadoop HDP 1.2 Cluster With VirtualBox, Vagrant and Chef</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/05/19/the-beauty-of-xml-processing-in-scala/">The Beauty of XML Processing in Scala</a>
