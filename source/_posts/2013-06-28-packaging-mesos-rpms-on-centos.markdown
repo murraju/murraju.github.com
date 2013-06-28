@@ -48,7 +48,7 @@ Run make and make install to /<working dir>/mesosinstalldir
 
 ``` 
 
-rpmbuild tools part of CentOS allow the capability to build rpms from source. However, I prefer Jordan Sissel's <a href="https://github.com/jordansissel/fpm">FPM</a>. You will need Ruby (http://rvm.io for installing a Ruby version) and install fpm with "gem install fpm". To create an rpm for mesos - mesos-0.12.0-1.x86_64.rpm, run the following:
+rpmbuild tools part of CentOS allow the capability to build rpms from source. However, I prefer Jordan Sissel's <a href="https://github.com/jordansissel/fpm">FPM</a>. You will need Ruby and install fpm with "gem install fpm". To create an rpm for mesos - mesos-0.12.0-1.x86_64.rpm, run the following:
 
 ```
 [root@node1 mesos-0.12.0]#fpm --verbose --workdir /<working dir>/pkg/ -s dir -t rpm -n mesos -v 0.12.0 -C /<working dir>/mesosinstalldir/ usr/
