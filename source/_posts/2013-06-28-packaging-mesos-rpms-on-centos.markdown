@@ -55,4 +55,4 @@ rpmbuild tools part of CentOS allow the capability to build rpms from source. Ho
 
 ```
 
-Now it is much easier to distribute and install mesos on multiples nodes! Check the fpm docs on how to builds other package formates such as .debs in addition to rpms.
+Now it is much easier to distribute and install mesos on multiples nodes! Check the fpm docs on how to builds other package formats such as .debs in addition to rpms.
