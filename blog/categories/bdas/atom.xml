@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: bdas | Knowledge Mining]]></title>
+  <link href="http://murraju.github.io/blog/categories/bdas/atom.xml" rel="self"/>
+  <link href="http://murraju.github.io/"/>
+  <updated>2013-06-28T19:35:54-04:00</updated>
+  <id>http://murraju.github.io/</id>
+  <author>
+    <name><![CDATA[Murali Raju]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Packaging Mesos - RPMS on CentOS]]></title>
+    <link href="http://murraju.github.io/blog/2013/06/28/packaging-mesos-rpms-on-centos/"/>
+    <updated>2013-06-28T18:54:00-04:00</updated>
+    <id>http://murraju.github.io/blog/2013/06/28/packaging-mesos-rpms-on-centos</id>
+    <content type="html"><![CDATA[<p>There is a lot of noise around <a href="http://hortonworks.com/blog/week-in-review-hadoop-summit-modern-data-architecture-and-yarn/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+hortonworks%2Ffeed+(Hortonworks+on+Hadoop)">YARN</a> and Hadoop 2.0. The concise version is, YARN splits the Hadoop JopTracker function and extracts the resource management piece into a seperate framework. This opens up powerful options to run other processing frameworks, such as graphing for example, in addition to MapReduce on Hadoop.</p>
+
+<p>Although this is certainly a great step forward in Hadoop&rsquo;s evolution, there is another resource manager that has been around for some time and is also part of the Apache Projects called <a href="http://incubator.apache.org/mesos/">Mesos</a>. Mesos is brought to you by the awesome team at UC Berkeley that created <a href="https://amplab.cs.berkeley.edu/software/">BDAS</a> &ndash; Berkeley Data Analysis Stack. As of this post, I believe Twitter is using Mesos.</p>
+
+<p>As I go deep into working on BDAS, I found it cumbersome to move .tar.gz across nodes (bins) and perhaps rpms and debs are of course more elegant &ndash; especially when it comes to automation with Chef for example.</p>
+
+<p>The following documents the steps I took to create an RPM for Mesos on CentOS. I am pretty sure there are better ways to do this, but I wanted to document this for myself before moving towards Jenkins/Nesus route down the road.</p>
+
+<p>On a CentOS 6.4 node using mesos version 0.12.0:</p>
+
+<p>```</p>
+
+<p>[root@node1 mesos-0.12.0]#ls
+aclocal.m4      bin           config.log     config.sub    depcomp     hadoop      libtool    m4           Makefile.in  NOTICE              src          third_party
+ar-lib          bootstrap     config.lt      configure     DISCLAIMER  include     LICENSE    Makefile     missing      protobuf-2.4.1.jar  support
+autom4te.cache  config.guess  config.status  configure.ac  ec2         install-sh  ltmain.sh  Makefile.am  mpi          README              test-driver</p>
+
+<p>```</p>
+
+<p>Create an install directory for the bins that need to be packaged.</p>
+
+<p>```
+[root@node1 mesos-0.12.0]#mkdir /<working dir>/mesosinstalldir</p>
+
+<p>```</p>
+
+<p>Run ./configure. I had to disable curl and perftools for compilation to work on CentOS.</p>
+
+<p>```
+[root@node1 mesos-0.12.0]#./configure &mdash;prefix=/usr/local/mesos &mdash;without-curl &mdash;disable-perftools</p>
+
+<p>```</p>
+
+<p>Run make and make install to /<working dir>/mesosinstalldir</p>
+
+<p>```
+[root@node1 mesos-0.12.0]#make
+[root@node1 mesos-0.12.0]#make install DESTDIR=/<working dir>/mesosinstalldir</p>
+
+<p>```</p>
+
+<p>rpmbuild tools part of CentOS allow the capability to build rpms from source. However, I prefer Jordan Sissel&rsquo;s <a href="https://github.com/jordansissel/fpm">FPM</a>. You will need Ruby and install fpm with &ldquo;gem install fpm&rdquo;. To create an rpm for mesos &ndash; mesos-0.12.0-1.x86_64.rpm, run the following:</p>
+
+<p>```
+[root@node1 mesos-0.12.0]#fpm &mdash;verbose &mdash;workdir /<working dir>/pkg/ -s dir -t rpm -n mesos -v 0.12.0 -C /<working dir>/mesosinstalldir/ usr/</p>
+
+<p>```</p>
+
+<p>Now it is much easier to distribute and install mesos on multiples nodes! Check the fpm docs on how to builds other package formats such as .debs in addition to rpms.</p>
+]]></content>
+  </entry>
+  
+</feed>
