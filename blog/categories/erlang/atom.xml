@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Erlang | Knowledge Mining]]></title>
+  <link href="http://murraju.github.io/blog/categories/erlang/atom.xml" rel="self"/>
+  <link href="http://murraju.github.io/"/>
+  <updated>2013-07-28T10:23:09-04:00</updated>
+  <id>http://murraju.github.io/</id>
+  <author>
+    <name><![CDATA[Murali Raju]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Actor Model explained]]></title>
+    <link href="http://murraju.github.io/blog/2013/07/28/actor-model-explained/"/>
+    <updated>2013-07-28T10:16:00-04:00</updated>
+    <id>http://murraju.github.io/blog/2013/07/28/actor-model-explained</id>
+    <content type="html"><![CDATA[<p>This is an excellent presentation/video by Hewitt, Meijer and Szyperski on Actors. A very good reference!</p>
+
+<iframe style="height:540px;width:800px" src="http://channel9.msdn.com/Shows/Going+Deep/Hewitt-Meijer-and-Szyperski-The-Actor-Model-everything-you-wanted-to-know-but-were-afraid-to-ask/player?w=960&h=540" frameBorder="0" scrolling="no" ></iframe>
+
+]]></content>
+  </entry>
+  
+</feed>
