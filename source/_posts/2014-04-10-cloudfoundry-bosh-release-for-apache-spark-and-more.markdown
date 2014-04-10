@@ -33,7 +33,7 @@ Things to note:
 
 ## Adopting Cloudfoundry
 
-Late last year I started to execute a strategy in order to move towards an Open Platform at <a href="http://velankani.net">Velankani Information Systems</a> for <a href="http://velankani.net/how-it-works/">MDP</a>. We built everything from stratch (Java and Clojure), including the Orchestration and IaaS abstraction layer. BOSH is the first piece we hope to leverage in order to replace existing components. 
+Late last year I started to execute a strategy in order to move towards an Open Platform at <a href="http://velankani.net">Velankani Information Systems</a> for <a href="http://velankani.net/how-it-works/">MDP</a>. We built everything from stratch (Java and Clojure), including the Orchestration and IaaS abstraction layers. BOSH is the first piece we hope to leverage in order to replace existing components. 
 
 We have already started to create and test Service Brokers for a few Big Data platforms on Cloudfoundry. In addition, bring together Mesos and Cloudfoundry to deliver a comphrehensive Big Data Platform-as-Services for our Customers. There is a good <a href="http://www.cloudcredo.com/apache-mesos-paas-what-the-bosh/">post</a> by Chris Hedley at CloudCredo explaining the relationship between Mesos, BOSH and CF.
 
