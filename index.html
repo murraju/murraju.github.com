@@ -9,7 +9,7 @@
 	<meta name="author" content="Murali Raju">
 
 	
-	<meta name="description" content="Jul 28th, 2013 Erlang Actor Model Explained This is an excellent presentation/video by Hewitt, Meijer and Szyperski on Actors. A very good reference &hellip;">
+	<meta name="description" content="Apr 10th, 2014 Bosh, Cloudfoundry, Mesos, Spark Cloudfoundry BOSH Release for Apache Spark and More Time away from meetings or distractions &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -96,6 +96,81 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner">
 <div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-10T12:06:00-04:00" data-updated="true" itemprop="datePublished">Apr 10<span>th</span>, 2014</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/bosh/'>Bosh</a>, <a class='category' href='/blog/categories/cloudfoundry/'>Cloudfoundry</a>, <a class='category' href='/blog/categories/mesos/'>Mesos</a>, <a class='category' href='/blog/categories/spark/'>Spark</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/04/10/cloudfoundry-bosh-release-for-apache-spark-and-more/" itemprop="url">Cloudfoundry BOSH Release for Apache Spark and More</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>Time away from meetings or distractions generally leads to fishing in the Gulf, time with Family or Hacking!</p>
+
+<h2>Reason for this post</h2>
+
+<p>I use Apache Spark as well as Spark on Mesos extensively for my Data Science needs. In addition, other favorites include Cascalog and recently looking at Scalding. Pig and Hive still remain on my list. You can read about my tour with Apache Spark <a href="http://appliv.io/going-stealth/">here</a> and how we are using Spark at one of my companies I am building &ndash; Appliv.</p>
+
+<p>So, I wanted a way to deploy Spark or in fact any Distributed System at scale on any IaaS layer for testing or development (closely mimic production environments). In the process, allowing me quickly stand up an infrastructure to process large datasets and if needed, destroy it with a few command (clean up).</p>
+
+<p>Earlier attempts made before BOSH:</p>
+
+<ol>
+<li>Adhoc Ruby and Clojure scripts using Fog and JClouds (respectively) with JSON as templating.</li>
+<li>Chef with a custom Ironfan gem. Ironfan provided some hope in providing a DSL to &ldquo;describe clusters&rdquo; rather than nodes. However, it was still not a good fit, since it needs Chef Server (Chef is awesome on its own). It took a lot longer to ramp up on the Ironfan code base to extend it for more than one IaaS layer. Gave up eventually&hellip;</li>
+<li>Discovered BOSH &ndash; rest is history.</li>
+</ol>
+
+
+<p>Checkout the BOSH release for Apache Spark and more <a href="https://github.com/murraju/insightfactory-boshrelease">here</a>. This release builds on (thanks to) work done by <a href="https://github.com/frodenas">Ferran Rodenas</a> and the <a href="https://github.com/cf-platform-eng">Cloud Foundry&rsquo;s Platform Engineering group</a>.</p>
+
+<p>To get started with BOSH, read the docs <a href="http://docs.cloudfoundry.org/">here</a>.</p>
+
+<p>Things to note:</p>
+
+<ol>
+<li>If you are deploying on OpenStack, make sure to disable API Throttling or find a Cloud Provider that can disable it. You can workaround API Throttling by playing with the number of instances or canary parameters, but that can be a pain.</li>
+<li>The manifest files are opinionated. i.e. they were created for my own needs. Change them to fit to your needs.</li>
+<li>This is work created in less than a week, so it probaly has bugs :&ndash;) Even then, I hope you find this release useful.</li>
+</ol>
+
+
+<h2>Adopting Cloudfoundry</h2>
+
+<p>Late last year I started to execute a strategy in order to move towards an Open Platform at <a href="http://velankani.net">Velankani Information Systems</a> for <a href="http://velankani.net/how-it-works/">MDP</a>. We built everything from stratch (Java and Clojure), including the Orchestration and IaaS abstraction layer. BOSH is the first piece we hope to leverage in order to replace existing components.</p>
+
+<p>We have already started to create and test Service Brokers for a few Big Data platforms on Cloudfoundry. In addition, bring together Mesos and Cloudfoundry to deliver a comphrehensive Big Data Platform-as-Services for our Customers. There is a good <a href="http://www.cloudcredo.com/apache-mesos-paas-what-the-bosh/">post</a> by Chris Hedley at CloudCredo explaining the relationship between Mesos, BOSH and CF.</p>
+
+<p>Finally, the formation of the Cloudfoundry Foundation helps us invest more on CF. Hope to share additional things in the near future.</p>
+
+<p>Cheers.</p>
+
+<p>Murali</p>
+
+		
+		
+	</div>
+
+</article>
 
 
     <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
@@ -810,7 +885,7 @@
 </nav></div>
 			</div>
 			<footer id="footer" class="inner"><p>
-  Copyright &copy; 2013 - Murali Raju -
+  Copyright &copy; 2014 - Murali Raju -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> and <a href="http://github.com">Github Pages</a> </span>
 </p>
 
