@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Enterpise, | Knowledge Mining]]></title>
+  <link href="http://murraju.github.io/blog/categories/enterpise/atom.xml" rel="self"/>
+  <link href="http://murraju.github.io/"/>
+  <updated>2014-06-08T12:42:27-04:00</updated>
+  <id>http://murraju.github.io/</id>
+  <author>
+    <name><![CDATA[Murali Raju]]></name>
+    <email><![CDATA[murali.raju@appliv.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[The New Enterprise Data Center]]></title>
+    <link href="http://murraju.github.io/blog/2014/06/08/the-new-enterprise-data-center/"/>
+    <updated>2014-06-08T12:08:00-04:00</updated>
+    <id>http://murraju.github.io/blog/2014/06/08/the-new-enterprise-data-center</id>
+    <content type="html"><![CDATA[<h2>The New Enterprise Data Center</h2>
+
+<p>The new Enterprise Data Center is in a state of transformation.</p>
+
+<p>The Enterprise Data Center blueprint (legacy) generally consists of:</p>
+
+<ol type="a">
+<li>Commercial Hardware</li>
+<li>Commercial Operating Systems</li>
+<li>VM/Hypervisor Centric (Data Center Virtualization)</li>
+<li>Vertically Scaling</li>
+<li>All about HA</li>
+<li>Transactional and Monolithic Applications</li>
+</ol>
+
+
+<p>The new Enterprise Data Center blueprint:</p>
+
+<ol type="a">
+<li>Commercial or Open Hardware (OCP)</li>
+<li>Open Source Software</li>
+<li>Elastic Infrastructure &ndash; IaaS, PaaS</li>
+<li>Horizontally Scaling</li>
+<li>Failure is part of life (Distributed Systems)</li>
+<li>Distributed Apps or Services Thinking (not VMs)</li>
+</ol>
+
+
+<p>It would be difficult to execute a 100% replace or rewrite or migration strategy. The best alternative would be stop thinking about cost and think more
+about agility. This would require raising a parallel infrastructure connected to the &lsquo;legacy&rsquo; infrastructure built around Services with the ability to
+leverage Public Cloud Services. The reality is, not all applications can be migrated to be run as Services. A certain percentage will still need to be run
+on perhaps a smaller footprint of the legacy infrastructure as the part of the transformation to to the new &ldquo;trinity&rdquo; Data Center Architecture &ndash; Legacy, New and Public Cloud
+Services.</p>
+]]></content>
+  </entry>
+  
+</feed>

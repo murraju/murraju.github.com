@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Enterprise | Knowledge Mining]]></title>
+  <link href="http://murraju.github.io/blog/categories/enterprise/atom.xml" rel="self"/>
+  <link href="http://murraju.github.io/"/>
+  <updated>2014-06-08T12:42:27-04:00</updated>
+  <id>http://murraju.github.io/</id>
+  <author>
+    <name><![CDATA[Murali Raju]]></name>
+    <email><![CDATA[murali.raju@appliv.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Speed and Agility are not enough for Enterprises]]></title>
+    <link href="http://murraju.github.io/blog/2014/06/08/speed-and-agility-are-not-enough-for-enterprises/"/>
+    <updated>2014-06-08T10:26:00-04:00</updated>
+    <id>http://murraju.github.io/blog/2014/06/08/speed-and-agility-are-not-enough-for-enterprises</id>
+    <content type="html"><![CDATA[<p>Most Open Source implementations of Web-Scale Architectures focus on Speed and Agility as the Foundational Layer.
+On the contrary, Enterprises build from a Foundational Layer of Compliance, Policy, Governance, Security and resistance
+to change. So, what does it take Open Source Web-Scale Architectures to succeed in an Enterprise?</p>
+
+<p>After many years of evangelism, strategy planning, design, build and operating large-scale infrastructures powered by Open Source,
+I wanted to share my thoughts.</p>
+
+<h2>Enterprise Adoption</h2>
+
+<ol>
+<li>Open Source projects need to delicately balance stability with features. Stability trumps features in most Enterprises.</li>
+<li>Security, Compliance, Policy, Governance, Monitoring should be part of the core and not an afterthought.</li>
+<li>Migration of workloads should be transparent as much as possible to reuse existing investment &ndash; at least for the near term.</li>
+</ol>
+
+
+<p>All of the above are not easy to achieve for various reasons. Open Source is not about just throwing the code out there. Diplomacy, Community
+and Ecosystem development determine success or adoption rate.</p>
+
+<p>From another point of view, the above also opens up a startup ecosystem to augment gaps or even progressive incumbents to shape the market.</p>
+
+<p>Classical models include:</p>
+
+<ol>
+<li>Open Core with closed Management Layer as &ldquo;Conveninent Differentiator&rdquo;. Stability is generally achieved by forking with upstream-push
+to the Open Core. Security, Compliance, Governance, Policy Management, Monitoring and Migration capabilities are rolled into the closed Management Layer.</li>
+<li>Pure-Play models focus on packaging stable branches with Open Source Add-ons. Support provided either as Managed Services or Support Agreements.</li>
+</ol>
+
+
+<h2>Build or Buy?</h2>
+
+<p>Enterprises are faced with a dilemma when it comes to Open Source &ndash; do I build everything myself or leverage vendors on either #1 or #2 models?</p>
+
+<p>I have seen strategies &ldquo;We will build everything ourselves, since it is Open Source and want to avoid vendor-lockin&rdquo;. This may seem ideal at the beginning and great on
+power points. However, without truly understanding what it takes &ndash; cost, cultural and organizational changes required and overall launching a product organization within the
+Enterprise &ndash; this almost 100% set for failure.</p>
+
+<h2>A Potential Solution</h2>
+
+<p>A potential solution would be to leverage both. Organization Inertia &ndash; Organizational and Cultural changes will take the longest time and therefore, developing a roadmap that encompasses a vendor
+strategy to bootstrap and in parellel, building in-house talent would perhaps be the best strategy. In order to mitigate risks on attrition, a services and staff aug vendor strategy
+is key.</p>
+]]></content>
+  </entry>
+  
+</feed>
