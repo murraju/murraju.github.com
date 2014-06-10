@@ -8,9 +8,9 @@ categories: Enterpise, DataCenter
 
 ##The New Enterprise Data Center
 
-The new Enterprise Data Center is in a state of transformation.
+The Enterprise Data Center is in a state of transformation.
 
-The Enterprise Data Center blueprint (legacy) generally consists of:
+The current Enterprise Data Center blueprint (legacy) generally consists of:
 
 a. Commercial Hardware
 b. Commercial Operating Systems
